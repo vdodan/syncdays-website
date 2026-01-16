@@ -1,43 +1,45 @@
 "use client";
 
-import { Calendar, Users, ListTodo, Dumbbell, CheckCircle, ArrowRight, Sparkles } from "lucide-react";
-import { Header, Footer, Container, Section, Button, FeatureCard, Card } from "@/components";
+import { Calendar, Users, ListTodo, Dumbbell, CheckCircle, ArrowRight } from "lucide-react";
+import { Header, Footer, Container, Section, Button, Card } from "@/components";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-cream">
       <Header />
 
       {/* Hero Section */}
-      <Section className="pt-32 sm:pt-40 pb-16" animate={false}>
+      <Section className="pt-32 sm:pt-40 pb-20" animate={false}>
         <Container>
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-jet-black leading-tight mb-6">
+          <div className="max-w-4xl">
+            <p className="text-sm text-muted mb-4 uppercase tracking-wide">Life planning made simple</p>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-medium text-black leading-[1.1] mb-6">
               Plan your life{" "}
-              <span className="text-sandy-brown">together</span>
+              <span className="accent-text">together</span>
             </h1>
-            <p className="text-lg sm:text-xl text-pale-oak mb-8 max-w-2xl mx-auto leading-relaxed">
-              The shared calendar for families, friends, and anyone who doesn&apos;t want to merge
-              Google Calendars. See your whole year at a glance.
+            <p className="text-lg text-muted mb-8 max-w-xl leading-relaxed">
+              The shared calendar for families, friends, and anyone who doesn&apos;t want to merge Google Calendars.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Button href="https://app.syncdays.com" size="lg" external>
-                Start Free <ArrowRight className="ml-2 h-5 w-5" />
+                Start Free
               </Button>
               <Button href="#features" variant="outline" size="lg">
-                See How It Works
+                Learn More
               </Button>
             </div>
           </div>
+        </Container>
+      </Section>
 
-          {/* Screenshot Placeholder */}
-          <div className="mt-16 relative">
-            <div className="bg-white/40 backdrop-blur rounded-2xl border border-pale-oak/20 shadow-2xl p-4 sm:p-8 max-w-5xl mx-auto">
-              <div className="aspect-[16/9] bg-gradient-to-br from-pale-oak/10 to-pale-oak/5 rounded-xl flex items-center justify-center">
-                <div className="text-center text-pale-oak">
-                  <Calendar className="h-16 w-16 mx-auto mb-4 opacity-40" />
-                  <p className="text-sm">App Screenshot Coming Soon</p>
-                </div>
+      {/* Screenshot Section */}
+      <Section className="py-0 pb-20">
+        <Container>
+          <div className="bg-warm-beige rounded-3xl p-8 sm:p-12">
+            <div className="aspect-[16/9] bg-tan/30 rounded-2xl flex items-center justify-center">
+              <div className="text-center text-muted">
+                <Calendar className="h-16 w-16 mx-auto mb-4 opacity-40" />
+                <p className="text-sm">App Screenshot Coming Soon</p>
               </div>
             </div>
           </div>
@@ -45,18 +47,19 @@ export default function Home() {
       </Section>
 
       {/* Collaboration Section - Hero Feature */}
-      <Section id="collaboration" className="bg-jet-black text-soft-linen">
+      <Section className="bg-warm-beige">
         <Container>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                Share what matters.{" "}
-                <span className="text-sandy-brown">Keep what&apos;s private.</span>
+              <p className="text-sm text-muted mb-4 uppercase tracking-wide">Collaboration</p>
+              <h2 className="text-4xl sm:text-5xl font-medium text-black leading-tight mb-6">
+                Share what matters,<br />
+                keep what&apos;s{" "}
+                <span className="accent-text">private</span>
               </h2>
-              <p className="text-pale-oak text-lg mb-6 leading-relaxed">
+              <p className="text-muted text-lg mb-8 leading-relaxed">
                 No more &quot;wait, I thought YOU were picking up the kids.&quot; Create shared calendars
-                for your family, friend groups, or coworkers. Everyone sees the plan without
-                seeing each other&apos;s work calendar.
+                for your family, friend groups, or coworkers.
               </p>
               <ul className="space-y-4">
                 {[
@@ -65,15 +68,15 @@ export default function Home() {
                   "Each person keeps their private events",
                   "Real-time sync across all devices",
                 ].map((item, index) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <CheckCircle className="h-5 w-5 text-sandy-brown flex-shrink-0" />
+                  <li key={index} className="flex items-center gap-3 text-black">
+                    <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="bg-charcoal-blue/50 rounded-2xl p-8 aspect-square flex items-center justify-center">
-              <div className="text-center text-pale-oak">
+            <div className="bg-tan/40 rounded-3xl aspect-square flex items-center justify-center">
+              <div className="text-center text-muted">
                 <Users className="h-16 w-16 mx-auto mb-4 opacity-40" />
                 <p className="text-sm">Collaboration Screenshot</p>
               </div>
@@ -85,73 +88,76 @@ export default function Home() {
       {/* Features Grid */}
       <Section id="features">
         <Container>
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-jet-black mb-4">
-              Everything you need to plan ahead
+          <div className="max-w-2xl mb-16">
+            <p className="text-sm text-muted mb-4 uppercase tracking-wide">Features</p>
+            <h2 className="text-4xl sm:text-5xl font-medium text-black leading-tight">
+              Everything you need to{" "}
+              <span className="accent-text">plan ahead</span>
             </h2>
-            <p className="text-pale-oak text-lg">
-              Not another to-do app. SyncDays thinks in days, not hours.
-            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <FeatureCard
-              icon={<Calendar className="h-10 w-10" />}
-              title="The Infinite Grid"
-              description="Plan months ahead. See your whole year at a glance. Drag events like sticky notes. The day is your smallest unit."
-            />
-            <FeatureCard
-              icon={<Users className="h-10 w-10" />}
-              title="Plan Together"
-              description="Families, friend groups, coworkers. Share calendars without merging Google Calendars. Everyone stays in sync."
-            />
-            <FeatureCard
-              icon={<ListTodo className="h-10 w-10" />}
-              title="Track Your Backlog"
-              description="Books, games, movies, TV shows. Your 'I'll get to it' list with time estimates. Finally, a place for your pile of shame."
-            />
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card variant="beige">
+              <Calendar className="h-8 w-8 mb-6 text-black" />
+              <h3 className="text-xl font-medium mb-3 text-black">The Infinite Grid</h3>
+              <p className="text-muted leading-relaxed">
+                Plan months ahead. See your whole year at a glance. Drag events like sticky notes.
+              </p>
+            </Card>
+            <Card variant="beige">
+              <Users className="h-8 w-8 mb-6 text-black" />
+              <h3 className="text-xl font-medium mb-3 text-black">Plan Together</h3>
+              <p className="text-muted leading-relaxed">
+                Families, friend groups, coworkers. Share calendars without merging Google Calendars.
+              </p>
+            </Card>
+            <Card variant="beige">
+              <ListTodo className="h-8 w-8 mb-6 text-black" />
+              <h3 className="text-xl font-medium mb-3 text-black">Track Your Backlog</h3>
+              <p className="text-muted leading-relaxed">
+                Books, games, movies, TV shows. Your &apos;I&apos;ll get to it&apos; list with time estimates.
+              </p>
+            </Card>
           </div>
         </Container>
       </Section>
 
       {/* Pro Features */}
-      <Section className="bg-soft-linen/50">
+      <Section className="bg-warm-beige">
         <Container>
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sandy-brown/20 text-sandy-brown text-sm font-medium mb-4">
-              <Sparkles className="h-4 w-4" />
-              Pro Features
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-jet-black mb-4">
-              For the data nerds
+          <div className="max-w-2xl mb-16">
+            <p className="text-sm text-muted mb-4 uppercase tracking-wide">Pro Features</p>
+            <h2 className="text-4xl sm:text-5xl font-medium text-black leading-tight">
+              For the{" "}
+              <span className="accent-text">data nerds</span>
             </h2>
-            <p className="text-pale-oak text-lg">
+            <p className="text-muted text-lg mt-6 leading-relaxed">
               Optional features for those who want to track even more. Toggle them on or off anytime.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl">
             <Card>
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-xl bg-sandy-brown/10">
-                  <CheckCircle className="h-6 w-6 text-sandy-brown" />
+                <div className="p-3 rounded-xl bg-warm-beige">
+                  <CheckCircle className="h-6 w-6 text-black" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-jet-black mb-2">Habit Tracking</h3>
-                  <p className="text-pale-oak">
-                    Check off your habits. Watch the streaks grow. Feel unreasonably proud of yourself.
+                  <h3 className="text-lg font-medium text-black mb-2">Habit Tracking</h3>
+                  <p className="text-muted">
+                    Check off your habits. Watch the streaks grow. Feel unreasonably proud.
                   </p>
                 </div>
               </div>
             </Card>
             <Card>
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-xl bg-sandy-brown/10">
-                  <Dumbbell className="h-6 w-6 text-sandy-brown" />
+                <div className="p-3 rounded-xl bg-warm-beige">
+                  <Dumbbell className="h-6 w-6 text-black" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-jet-black mb-2">Exercise Logging</h3>
-                  <p className="text-pale-oak">
+                  <h3 className="text-lg font-medium text-black mb-2">Exercise Logging</h3>
+                  <p className="text-muted">
                     Workouts without the gym bro vibes. Log sets, track PRs, rest timers included.
                   </p>
                 </div>
@@ -164,39 +170,36 @@ export default function Home() {
       {/* How It Works */}
       <Section>
         <Container>
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-jet-black mb-4">
-              Simple as 1, 2, 3
+          <div className="max-w-2xl mb-16">
+            <p className="text-sm text-muted mb-4 uppercase tracking-wide">How it works</p>
+            <h2 className="text-4xl sm:text-5xl font-medium text-black leading-tight">
+              Simple as{" "}
+              <span className="accent-text">1, 2, 3</span>
             </h2>
-            <p className="text-pale-oak text-lg">
-              Get started in minutes, not hours.
-            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-12">
             {[
               {
-                step: "1",
+                step: "01",
                 title: "Drop events on the calendar",
                 description: "Drag and drop to plan your days. See weeks and months at a glance.",
               },
               {
-                step: "2",
+                step: "02",
                 title: "Share with your people",
                 description: "Invite family, friends, or coworkers to your shared calendars.",
               },
               {
-                step: "3",
+                step: "03",
                 title: "Track what matters",
                 description: "Books, habits, workouts — everything in one place.",
               },
             ].map((item, index) => (
-              <div key={index} className="text-center">
-                <div className="w-12 h-12 rounded-full bg-sandy-brown text-jet-black font-bold text-xl flex items-center justify-center mx-auto mb-4">
-                  {item.step}
-                </div>
-                <h3 className="text-xl font-semibold text-jet-black mb-2">{item.title}</h3>
-                <p className="text-pale-oak">{item.description}</p>
+              <div key={index}>
+                <span className="text-5xl font-light text-tan mb-4 block">{item.step}</span>
+                <h3 className="text-xl font-medium text-black mb-3">{item.title}</h3>
+                <p className="text-muted leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
@@ -204,15 +207,17 @@ export default function Home() {
       </Section>
 
       {/* Testimonials */}
-      <Section className="bg-soft-linen/50">
+      <Section className="bg-warm-beige">
         <Container>
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-jet-black mb-4">
-              People are saying nice things
+          <div className="max-w-2xl mb-16">
+            <p className="text-sm text-muted mb-4 uppercase tracking-wide">Testimonials</p>
+            <h2 className="text-4xl sm:text-5xl font-medium text-black leading-tight">
+              People are saying{" "}
+              <span className="accent-text">nice things</span>
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 quote: "Finally, a calendar that makes sense for our whole family. The kids can see what's planned without access to my work stuff.",
@@ -231,10 +236,11 @@ export default function Home() {
               },
             ].map((testimonial, index) => (
               <Card key={index}>
-                <p className="text-jet-black mb-6 italic">&quot;{testimonial.quote}&quot;</p>
-                <div>
-                  <p className="font-semibold text-jet-black">{testimonial.name}</p>
-                  <p className="text-pale-oak text-sm">{testimonial.role}</p>
+                <span className="quote-mark">&ldquo;</span>
+                <p className="text-black mb-6 -mt-4">{testimonial.quote}</p>
+                <div className="pt-4 border-t border-tan/30">
+                  <p className="font-medium text-black">{testimonial.name}</p>
+                  <p className="text-muted text-sm">{testimonial.role}</p>
                 </div>
               </Card>
             ))}
@@ -243,17 +249,19 @@ export default function Home() {
       </Section>
 
       {/* CTA Banner */}
-      <Section className="bg-jet-black text-soft-linen">
+      <Section className="bg-black text-white">
         <Container>
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-              Ready to see your year at a glance?
+          <div className="max-w-2xl">
+            <p className="text-sm text-white/50 mb-4 uppercase tracking-wide">Get started</p>
+            <h2 className="text-4xl sm:text-5xl font-medium leading-tight mb-6">
+              Your planning journey starts{" "}
+              <span className="accent-text">right here</span>
             </h2>
-            <p className="text-pale-oak text-lg mb-8">
+            <p className="text-white/60 text-lg mb-8">
               Join thousands of families and friends who plan their lives together.
             </p>
-            <Button href="https://app.syncdays.com" size="lg" external>
-              Start Free — No Credit Card Required <ArrowRight className="ml-2 h-5 w-5" />
+            <Button href="https://app.syncdays.com" variant="secondary" size="lg" external>
+              Start Free — No Credit Card <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
         </Container>

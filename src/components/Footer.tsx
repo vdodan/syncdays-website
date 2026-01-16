@@ -19,28 +19,28 @@ const footerNavigation = {
 
 export function Footer() {
   return (
-    <footer className="bg-jet-black text-soft-linen py-12 sm:py-16">
+    <footer className="bg-black text-white py-16">
       <Container>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="text-xl font-semibold">
               SyncDays
             </Link>
-            <p className="mt-4 text-pale-oak text-sm leading-relaxed">
+            <p className="mt-4 text-white/60 text-sm leading-relaxed">
               Plan your life together. The shared calendar for families, friends, and everyone in between.
             </p>
           </div>
 
           {/* Product */}
           <div>
-            <h3 className="font-semibold mb-4">Product</h3>
+            <h3 className="font-medium mb-4 text-sm">Product</h3>
             <ul className="space-y-3">
               {footerNavigation.product.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-pale-oak hover:text-soft-linen transition-colors text-sm"
+                    className="text-white/60 hover:text-white transition-colors text-sm"
                   >
                     {item.name}
                   </Link>
@@ -51,13 +51,13 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="font-semibold mb-4">Company</h3>
+            <h3 className="font-medium mb-4 text-sm">Company</h3>
             <ul className="space-y-3">
               {footerNavigation.company.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-pale-oak hover:text-soft-linen transition-colors text-sm"
+                    className="text-white/60 hover:text-white transition-colors text-sm"
                   >
                     {item.name}
                   </Link>
@@ -68,13 +68,13 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="font-semibold mb-4">Legal</h3>
+            <h3 className="font-medium mb-4 text-sm">Legal</h3>
             <ul className="space-y-3">
               {footerNavigation.legal.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-pale-oak hover:text-soft-linen transition-colors text-sm"
+                    className="text-white/60 hover:text-white transition-colors text-sm"
                   >
                     {item.name}
                   </Link>
@@ -85,8 +85,8 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-charcoal-blue">
-          <p className="text-pale-oak text-sm text-center">
+        <div className="pt-8 border-t border-white/10">
+          <p className="text-white/40 text-sm text-center">
             &copy; {new Date().getFullYear()} SyncDays. All rights reserved.
           </p>
         </div>

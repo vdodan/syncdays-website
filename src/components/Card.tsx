@@ -7,10 +7,16 @@ interface CardProps {
   children: ReactNode;
   className?: string;
   hover?: boolean;
+  variant?: "default" | "beige";
 }
 
-export function Card({ children, className = "", hover = true }: CardProps) {
-  const baseStyles = "bg-white/60 backdrop-blur-sm rounded-2xl border border-pale-oak/20 p-6 sm:p-8";
+export function Card({ children, className = "", hover = true, variant = "default" }: CardProps) {
+  const variants = {
+    default: "bg-white border border-tan/30",
+    beige: "bg-warm-beige border border-tan/30",
+  };
+
+  const baseStyles = `rounded-2xl p-6 sm:p-8 ${variants[variant]}`;
 
   if (!hover) {
     return <div className={`${baseStyles} ${className}`}>{children}</div>;
@@ -19,7 +25,7 @@ export function Card({ children, className = "", hover = true }: CardProps) {
   return (
     <motion.div
       className={`${baseStyles} ${className}`}
-      whileHover={{ y: -4, boxShadow: "0 12px 24px rgba(0,0,0,0.08)" }}
+      whileHover={{ y: -4 }}
       transition={{ duration: 0.2 }}
     >
       {children}
@@ -36,10 +42,10 @@ interface FeatureCardProps {
 
 export function FeatureCard({ icon, title, description, className = "" }: FeatureCardProps) {
   return (
-    <Card className={className}>
-      <div className="mb-4 text-sandy-brown">{icon}</div>
-      <h3 className="text-xl font-semibold mb-2 text-jet-black">{title}</h3>
-      <p className="text-pale-oak leading-relaxed">{description}</p>
+    <Card className={className} variant="beige">
+      <div className="mb-4 text-black">{icon}</div>
+      <h3 className="text-xl font-semibold mb-3 text-black">{title}</h3>
+      <p className="text-muted leading-relaxed">{description}</p>
     </Card>
   );
 }

@@ -18,12 +18,12 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-soft-linen/80 backdrop-blur-md border-b border-pale-oak/10">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-md">
       <Container>
-        <nav className="flex items-center justify-between h-16">
+        <nav className="flex items-center justify-between h-16 border-b border-tan/20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl font-semibold text-jet-black">SyncDays</span>
+            <span className="text-lg font-semibold text-black">SyncDays</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -32,7 +32,7 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-pale-oak hover:text-jet-black transition-colors"
+                className="text-sm text-muted hover:text-black transition-colors"
               >
                 {item.name}
               </Link>
@@ -43,7 +43,7 @@ export function Header() {
           <div className="hidden md:flex items-center gap-4">
             <Link
               href="https://app.syncdays.com"
-              className="text-pale-oak hover:text-jet-black transition-colors"
+              className="text-sm text-muted hover:text-black transition-colors"
             >
               Sign in
             </Link>
@@ -54,7 +54,7 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-jet-black"
+            className="md:hidden p-2 text-black"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -69,7 +69,7 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-soft-linen border-b border-pale-oak/10"
+            className="md:hidden bg-cream border-b border-tan/20"
           >
             <Container>
               <div className="py-4 space-y-4">
@@ -77,16 +77,16 @@ export function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block text-pale-oak hover:text-jet-black transition-colors"
+                    className="block text-muted hover:text-black transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
                 ))}
-                <div className="pt-4 border-t border-pale-oak/10 space-y-3">
+                <div className="pt-4 border-t border-tan/20 space-y-3">
                   <Link
                     href="https://app.syncdays.com"
-                    className="block text-pale-oak hover:text-jet-black transition-colors"
+                    className="block text-muted hover:text-black transition-colors"
                   >
                     Sign in
                   </Link>
