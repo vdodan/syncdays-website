@@ -1,0 +1,21 @@
+{
+  "name": "syncdays-hero-animation",
+  "version": "1.0.0",
+  "description": "Animated calendar hero for SyncDays website",
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion render HeroCalendar out/hero-calendar.mp4",
+    "build:gif": "remotion render HeroCalendar out/hero-calendar.gif",
+    "build:webm": "remotion render HeroCalendar out/hero-calendar.webm"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "typescript": "^5.0.0"
+  }
+}
