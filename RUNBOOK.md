@@ -16,3 +16,8 @@
 
 ## Incidents
 (none yet)
+
+## Change log
+- **2026-09-28, CHANGE syncdays-website-01** (approved by the owner in chat): production Worker + custom domain `www.syncdays.com`.
+  - Pre-change DNS: www CNAME `cname.vercel-dns.com. `, apex A `216.198.79.1 `, app CNAME `cname.vercel-dns.com. `.
+  - Rollback: remove the route, redeploy, and re-create the www CNAME above.
