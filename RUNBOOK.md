@@ -21,3 +21,4 @@
 - **2026-09-28, CHANGE syncdays-website-01** (approved by the owner in chat): production Worker + custom domain `www.syncdays.com`.
   - Pre-change DNS: www CNAME `cname.vercel-dns.com. `, apex A `216.198.79.1 `, app CNAME `cname.vercel-dns.com. `.
   - Rollback: remove the route, redeploy, and re-create the www CNAME above.
+  - Result: the first attempt failed with error 100117 ("hostname already has externally managed DNS records"). The dangling www CNAME was deleted in the dashboard (covered by the approval) and the deploy re-run. It now returns `301 https://syncdays.com/…` with valid TLS. Apex, app, MX and TXT are unchanged.
