@@ -83,6 +83,15 @@ describe('www → apex', () => {
     expect(assetsFetch).not.toHaveBeenCalled();
   });
 
+  it('301s plain http to https (and www to the apex in one hop)', async () => {
+    const apex = await run(new Request('http://syncdays.com/pricing?x=1'), makeEnv());
+    expect(apex.status).toBe(301);
+    expect(apex.headers.get('location')).toBe('https://syncdays.com/pricing?x=1');
+    const www = await run(new Request('http://www.syncdays.com/'), makeEnv());
+    expect(www.headers.get('location')).toBe('https://syncdays.com/');
+    expect(assetsFetch).not.toHaveBeenCalled();
+  });
+
   it('serves the apex from ASSETS', async () => {
     const res = await run(new Request(`${ORIGIN}/pricing`), makeEnv());
     expect(res.status).toBe(200);

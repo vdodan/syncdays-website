@@ -54,6 +54,13 @@ export const handler: ExportedHandler<Env> = {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    // Plain HTTP → HTTPS on the real domains (kept in code instead of the zone's "Always Use HTTPS").
+    if (url.protocol === 'http:' && env.ENVIRONMENT !== 'local') {
+      url.protocol = 'https:';
+      if (env.CANONICAL_HOST && url.hostname === `www.${env.CANONICAL_HOST}`) url.hostname = env.CANONICAL_HOST;
+      return Response.redirect(url.toString(), 301);
+    }
+
     // www → apex, path and query preserved (run_worker_first covers every path on www).
     if (env.CANONICAL_HOST && url.hostname === `www.${env.CANONICAL_HOST}`) {
       url.hostname = env.CANONICAL_HOST;
