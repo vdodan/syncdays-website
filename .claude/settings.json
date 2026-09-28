@@ -1,0 +1,81 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(*--env production*)",
+      "Bash(*--env=production*)",
+      "Bash(*-e production*)",
+      "Bash(*--confirm-prod*)",
+      "Bash(*wrangler d1 execute*--remote*)",
+      "Bash(*wrangler d1 time-travel restore*)",
+      "Bash(*wrangler d1 delete*)",
+      "Bash(*wrangler d1 export*--remote*)",
+      "Bash(*wrangler delete*)",
+      "Bash(*wrangler r2 bucket delete*)",
+      "Bash(*wrangler r2 object delete*)",
+      "Bash(*wrangler kv namespace delete*)",
+      "Bash(*wrangler queues delete*)",
+      "Bash(*wrangler hyperdrive delete*)",
+      "Bash(*factory destroy*--apply*)",
+      "Bash(*factory archive*--apply*)",
+      "Bash(*wrangler secret put*)",
+      "Bash(*wrangler secret delete*)",
+      "Bash(*wrangler secret bulk*)",
+      "Bash(*wrangler versions secret*)",
+      "Bash(*wrangler rollback*)",
+      "Bash(*wrangler versions deploy*)",
+      "Bash(*wrangler login*)",
+      "Bash(*wrangler tunnel*)",
+      "Bash(*api.cloudflare.com*dns_records*)",
+      "Bash(*curl*-X DELETE*api.cloudflare.com*)",
+      "Bash(*psql*supabase.co*)",
+      "Bash(*supabase db push*)",
+      "Bash(*supabase db reset*)",
+      "Bash(*git push*--force*main*)",
+      "Bash(*--no-verify*)",
+      "Edit(.claude/**)",
+      "Write(.claude/**)",
+      "Edit(.github/CODEOWNERS)",
+      "Read(.dev.vars)",
+      "Read(**/.env*)"
+    ],
+    "ask": [
+      "Bash(*wrangler deploy*)",
+      "Bash(*wrangler d1 migrations apply*--remote*)",
+      "Bash(*factory deploy staging*)",
+      "Bash(*factory provision*--apply*)",
+      "Bash(*factory secrets set*)",
+      "Edit(.github/workflows/**)",
+      "Edit(wrangler.jsonc)",
+      "Edit(migrations/**)"
+    ],
+    "allow": [
+      "Bash(pnpm dev*)",
+      "Bash(pnpm test*)",
+      "Bash(pnpm lint*)",
+      "Bash(pnpm typecheck*)",
+      "Bash(pnpm build*)",
+      "Bash(npx wrangler dev*)",
+      "Bash(npx wrangler types*)",
+      "Bash(npx wrangler d1 migrations apply * --local*)",
+      "Bash(npx wrangler d1 execute * --local*)",
+      "Bash(factory status*)",
+      "Bash(factory env*)",
+      "Bash(factory doctor*)",
+      "Bash(factory cost*)",
+      "Bash(factory provision --env preview*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/guard-bash.mjs"
+          }
+        ]
+      }
+    ]
+  }
+}

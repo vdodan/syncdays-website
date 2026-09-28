@@ -84,7 +84,13 @@ export const handler: ExportedHandler<Env> = {
           EMAIL_FROM: env.EMAIL_FROM,
           ENVIRONMENT: env.ENVIRONMENT,
         },
-        { transport: transportFor(env), subjectPrefix: 'syncdays.com contact' },
+        {
+          transport: transportFor(env),
+          subjectPrefix: 'syncdays.com contact',
+          // Deployed: the token must come from our widget action on the host that served the form.
+          // Local: Cloudflare's test keys return placeholder action/hostname, so skip these checks.
+          turnstile: env.ENVIRONMENT === 'local' ? undefined : { expectedAction: 'contact', expectedHostname: url.hostname },
+        },
       );
     }
 

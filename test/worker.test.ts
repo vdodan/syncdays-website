@@ -7,6 +7,7 @@ const ORIGIN = 'https://syncdays.com';
 const TURNSTILE_URL = 'challenges.cloudflare.com/turnstile/v0/siteverify';
 
 let turnstileOk: boolean;
+let turnstileAnswer: { hostname: string; action: string };
 let assetsFetch: ReturnType<typeof vi.fn>;
 let sent: unknown[];
 let sendFails: boolean;
@@ -58,6 +59,7 @@ async function run(req: Request, env: Env): Promise<Response> {
 
 beforeEach(() => {
   turnstileOk = true;
+  turnstileAnswer = { hostname: 'syncdays.com', action: 'contact' };
   sendFails = false;
   limiterAllows = true;
   sent = [];
@@ -65,7 +67,7 @@ beforeEach(() => {
   vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
     const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
     if (url.includes(TURNSTILE_URL)) {
-      return Response.json({ success: turnstileOk, 'error-codes': turnstileOk ? [] : ['invalid-input-response'] });
+      return Response.json({ success: turnstileOk, ...turnstileAnswer, 'error-codes': turnstileOk ? [] : ['invalid-input-response'] });
     }
     throw new Error(`unexpected outbound fetch: ${url}`);
   });
@@ -122,6 +124,14 @@ describe('POST /api/contact', () => {
     turnstileOk = false;
     const res = await run(contactForm(valid), makeEnv());
     expect(res.status).toBe(403);
+    expect(sent).toHaveLength(0);
+  });
+
+  it('rejects a token issued for another action or hostname', async () => {
+    turnstileAnswer = { hostname: 'syncdays.com', action: 'signup' };
+    expect((await run(contactForm(valid), makeEnv())).status).toBe(403);
+    turnstileAnswer = { hostname: 'evil.example', action: 'contact' };
+    expect((await run(contactForm(valid), makeEnv())).status).toBe(403);
     expect(sent).toHaveLength(0);
   });
 

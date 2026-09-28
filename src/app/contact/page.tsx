@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TURNSTILE_SITE_KEY } from "@/lib/public-config";
+import { TURNSTILE_ACTION, TURNSTILE_SITE_KEY } from "@/lib/public-config";
 import { Mail, Send, CheckCircle } from "lucide-react";
 import { Header, Footer, Container, Section, Button, Card } from "@/components";
 
@@ -135,7 +135,7 @@ export default function ContactPage() {
                   <input type="text" id="website" name="website" tabIndex={-1} autoComplete="off" />
                 </div>
 
-                <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} />
+                <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-action={TURNSTILE_ACTION} />
 
                 {error && (
                   <p role="alert" className="text-sm text-red-600">
