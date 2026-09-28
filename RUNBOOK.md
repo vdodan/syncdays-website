@@ -25,3 +25,8 @@
 - **2026-09-29, CHANGE syncdays-website-02** (approved by the owner in chat): apex `syncdays.com` moved to the Worker.
   - Pre-change: apex A `216.198.79.1` (Vercel), DNS only, TTL 10 min.
   - Rollback: remove the apex custom domain, then re-create that A record.
+  - Result: the apex was served by the Worker with valid TLS within about 3 minutes of deleting the A record (00:26 → 00:29 EEST).
+    - Checks passed: all 8 pages, 404, security headers, http→https and www→apex (one hop), and a production contact message delivered to the inbox.
+    - Unchanged: `app.syncdays.com`, MX, SPF and Resend DKIM.
+  - Watch: on the first production form test, typed values were cleared once before submit and a retype worked. This is possibly a hydration timing effect on the controlled inputs. Not reproduced; check whether real users hit it.
+  - Vercel project `syncdays-website` stays up until 2026-10-13 (14-day window) for DNS rollback.
