@@ -63,10 +63,10 @@
       },
       "send_email": [{ "name": "CONTACT_EMAIL", "destination_address": "vlad.dodan@gmail.com" }],
       "ratelimits": [{ "name": "CONTACT_LIMITER", "namespace_id": "1103", "simple": { "limit": 5, "period": 60 } }],
-      // CHANGE syncdays-website-01 (2026-09-28): www first. Apex follows in CHANGE -02.
+      // CHANGE syncdays-website-01 (2026-09-28): www. CHANGE -02 (2026-09-29): apex.
       "routes": [
-        { "pattern": "www.syncdays.com", "custom_domain": true }
-        // { "pattern": "syncdays.com", "custom_domain": true }
+        { "pattern": "www.syncdays.com", "custom_domain": true },
+        { "pattern": "syncdays.com", "custom_domain": true }
       ]
     }
   }
