@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Playfair_Display } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
+import { CF_BEACON_TOKEN } from "@/lib/public-config";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -45,7 +45,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${outfit.variable} ${playfair.variable} antialiased`}>
         {children}
-        <Analytics />
+        {CF_BEACON_TOKEN && (
+          <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={JSON.stringify({ token: CF_BEACON_TOKEN })}
+          />
+        )}
       </body>
     </html>
   );

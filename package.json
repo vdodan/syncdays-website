@@ -1,15 +1,21 @@
 {
   "name": "syncdays-website",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
+  "type": "module",
+  "description": "syncdays.com marketing site: Next.js static export on Workers Static Assets + contact-form Worker",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "preview": "next build && wrangler dev",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit && tsc -p worker/tsconfig.json --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
-    "@vercel/analytics": "^1.6.1",
+    "@vdodan/email": "workspace:*",
+    "@vdodan/forms": "workspace:*",
+    "@vdodan/observability": "workspace:*",
     "framer-motion": "^12.26.2",
     "lucide-react": "^0.562.0",
     "next": "16.1.2",
@@ -17,13 +23,18 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "0.22.0",
+    "@cloudflare/workers-types": "5.20260927.1",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vdodan/config": "workspace:*",
     "eslint": "^9",
     "eslint-config-next": "16.1.2",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "5.9.3",
+    "vitest": "4.1.11",
+    "wrangler": "4.142.0"
   }
 }

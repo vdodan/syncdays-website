@@ -1,0 +1,45 @@
+{
+  "$schema": "https://raw.githubusercontent.com/vdodan/factory/main/tooling/factory-cli/schema/factory.schema.json",
+  "schemaVersion": 1,
+  "name": "syncdays-website",
+  "displayName": "SyncDays website",
+  "description": "syncdays.com marketing site: Next.js static export on Workers Static Assets + contact-form Worker (Pilot #1)",
+  "archetype": "static-site",
+  "template": { "name": "static-site", "version": "0.1.0" },
+  "owner": "vlad",
+  "account": "vlad",
+  "criticality": "normal",
+  "lifecycle": "active",
+  "repo": "github.com/vdodan/factory",
+  "framework": { "name": "next", "adapter": "static", "adapterVersion": "16.1.2" },
+  "auth": { "kind": "none", "methods": [] },
+  "environments": ["staging", "production"],
+  "resources": {
+    "d1": [],
+    "hyperdrive": [],
+    "r2": [],
+    "kv": [],
+    "queues": [],
+    "workflows": [],
+    "durableObjects": [],
+    "crons": [],
+    "turnstile": { "widget": "syncdays-website", "hostnames": ["syncdays.com", "vlad-dodan.workers.dev"] }
+  },
+  "secrets": {
+    "required": ["TURNSTILE_SECRET_KEY"],
+    "optional": []
+  },
+  "domains": {
+    "production": ["syncdays.com", "www.syncdays.com"],
+    "staging": [],
+    "preview": []
+  },
+  "access": {
+    "staging": { "enabled": false },
+    "production": { "enabled": false }
+  },
+  "backups": { "d1Export": "none" },
+  "observability": { "prodSamplingRate": 1, "tracesSampling": 0, "healthcheck": "/healthz" },
+  "archive": { "retentionDaysBeforeDestroy": 30 },
+  "notes": "Imported from github.com/vdodan/syncdays-website (history kept) on 2026-09-28. Email via Cloudflare send_email to the verified Email Routing destination; no API key. Staging lives on workers.dev (public, no data)."
+}

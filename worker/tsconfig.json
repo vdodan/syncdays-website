@@ -1,0 +1,10 @@
+{
+  "extends": "@vdodan/config/tsconfig.worker.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "declaration": false,
+    "declarationMap": false,
+    "types": ["@cloudflare/workers-types", "@cloudflare/vitest-pool-workers/types"]
+  },
+  "include": ["./**/*.ts", "../test/**/*.ts"]
+}

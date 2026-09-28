@@ -1,0 +1,72 @@
+// syncdays-website: Next.js static export (./out) on Workers Static Assets + a small Worker.
+// Deploys only through CI (.github/workflows/syncdays-website.yml). Naming: docs/05 §7.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "syncdays-website",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    // true: the Worker sees every request so www → apex works; it passes everything else to ASSETS.
+    "run_worker_first": true
+  },
+  "observability": { "enabled": true },
+  "workers_dev": true,
+
+  // Top level = LOCAL DEV. No send_email binding locally: the console transport logs instead of sending.
+  "vars": {
+    "ENVIRONMENT": "local",
+    "CANONICAL_HOST": "syncdays.com",
+    "CONTACT_TO": "vlad.dodan@gmail.com",
+    "EMAIL_FROM": "SyncDays website <noreply@syncdays.com>"
+  },
+  "ratelimits": [{ "name": "CONTACT_LIMITER", "namespace_id": "1101", "simple": { "limit": 5, "period": 60 } }],
+
+  // Worker Previews (per-branch). Required by `wrangler preview` even without stateful bindings.
+  "previews": {
+    "vars": {
+      "ENVIRONMENT": "preview",
+      "CANONICAL_HOST": "syncdays.com",
+      "CONTACT_TO": "vlad.dodan@gmail.com",
+      "EMAIL_FROM": "SyncDays website <noreply@syncdays.com>"
+    }
+  },
+
+  "env": {
+    // ---------- staging → Worker "syncdays-website-staging" (workers.dev) ----------
+    "staging": {
+      "name": "syncdays-website-staging",
+      "vars": {
+        "ENVIRONMENT": "staging",
+        "CANONICAL_HOST": "syncdays.com",
+        "CONTACT_TO": "vlad.dodan@gmail.com",
+        "EMAIL_FROM": "SyncDays website <noreply@syncdays.com>"
+      },
+      "send_email": [{ "name": "CONTACT_EMAIL", "destination_address": "vlad.dodan@gmail.com" }],
+      "ratelimits": [{ "name": "CONTACT_LIMITER", "namespace_id": "1102", "simple": { "limit": 5, "period": 60 } }]
+    },
+
+    // ---------- production → Worker "syncdays-website" ----------
+    // Custom domains are attached at cutover (Pilot #1 steps 12-13) by adding "routes" here.
+    "production": {
+      "name": "syncdays-website",
+      "workers_dev": false,
+      "vars": {
+        "ENVIRONMENT": "production",
+        "CANONICAL_HOST": "syncdays.com",
+        "CONTACT_TO": "vlad.dodan@gmail.com",
+        "EMAIL_FROM": "SyncDays website <noreply@syncdays.com>"
+      },
+      "send_email": [{ "name": "CONTACT_EMAIL", "destination_address": "vlad.dodan@gmail.com" }],
+      "ratelimits": [{ "name": "CONTACT_LIMITER", "namespace_id": "1103", "simple": { "limit": 5, "period": 60 } }]
+      // "routes": [
+      //   { "pattern": "www.syncdays.com", "custom_domain": true },
+      //   { "pattern": "syncdays.com", "custom_domain": true }
+      // ]
+    }
+  }
+}

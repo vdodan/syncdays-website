@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { TURNSTILE_SITE_KEY } from "@/lib/public-config";
 import { Mail, Send, CheckCircle } from "lucide-react";
 import { Header, Footer, Container, Section, Button, Card } from "@/components";
 
@@ -10,19 +11,48 @@ export default function ContactPage() {
     email: "",
     message: "",
   });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Load Turnstile once; the widget renders into .cf-turnstile automatically.
+  useEffect(() => {
+    if (document.querySelector('script[data-turnstile]')) return;
+    const s = document.createElement("script");
+    s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+    s.async = true;
+    s.defer = true;
+    s.dataset.turnstile = "1";
+    document.head.appendChild(s);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-
-    // In production, this would send to an API endpoint
-    // For now, we'll just simulate the submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    setSubmitted(true);
-    setLoading(false);
+    setStatus("sending");
+    setError(null);
+    const data = new FormData(e.currentTarget);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        body: data,
+        headers: { accept: "application/json" },
+      });
+      if (res.ok) {
+        setStatus("sent");
+        return;
+      }
+      setStatus("error");
+      setError(
+        res.status === 429
+          ? "Too many messages in a short time. Please wait a minute and try again."
+          : res.status === 403
+            ? "We couldn't verify you're human. Please retry the check and send again."
+            : "Your message could not be sent. Please email us at hello@syncdays.com instead."
+      );
+      (window as unknown as { turnstile?: { reset: () => void } }).turnstile?.reset();
+    } catch {
+      setStatus("error");
+      setError("Network error. Please try again, or email hello@syncdays.com.");
+    }
   };
 
   return (
@@ -40,7 +70,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          {submitted ? (
+          {status === "sent" ? (
             <Card hover={false} className="text-center py-12">
               <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
               <h2 className="text-2xl font-bold text-jet-black mb-2">Message sent!</h2>
@@ -50,7 +80,7 @@ export default function ContactPage() {
             </Card>
           ) : (
             <Card hover={false}>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" method="post" action="/api/contact">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-jet-black mb-2">
                     Name
@@ -58,6 +88,7 @@ export default function ContactPage() {
                   <input
                     type="text"
                     id="name"
+                    name="name"
                     required
                     value={formState.name}
                     onChange={(e) => setFormState({ ...formState, name: e.target.value })}
@@ -73,6 +104,7 @@ export default function ContactPage() {
                   <input
                     type="email"
                     id="email"
+                    name="email"
                     required
                     value={formState.email}
                     onChange={(e) => setFormState({ ...formState, email: e.target.value })}
@@ -87,6 +119,7 @@ export default function ContactPage() {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     required
                     rows={5}
                     value={formState.message}
@@ -96,8 +129,22 @@ export default function ContactPage() {
                   />
                 </div>
 
-                <Button className="w-full" onClick={() => {}}>
-                  {loading ? (
+                {/* Honeypot: hidden from people, bots fill it in. */}
+                <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+                  <label htmlFor="website">Website</label>
+                  <input type="text" id="website" name="website" tabIndex={-1} autoComplete="off" />
+                </div>
+
+                <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} />
+
+                {error && (
+                  <p role="alert" className="text-sm text-red-600">
+                    {error}
+                  </p>
+                )}
+
+                <Button className="w-full" type="submit" disabled={status === "sending"}>
+                  {status === "sending" ? (
                     "Sending..."
                   ) : (
                     <>

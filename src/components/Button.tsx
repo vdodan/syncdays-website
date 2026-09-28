@@ -12,6 +12,8 @@ interface ButtonProps {
   onClick?: () => void;
   className?: string;
   external?: boolean;
+  type?: "button" | "submit";
+  disabled?: boolean;
 }
 
 export function Button({
@@ -22,6 +24,8 @@ export function Button({
   onClick,
   className = "",
   external = false,
+  type,
+  disabled,
 }: ButtonProps) {
   const baseStyles = "inline-flex items-center justify-center font-medium rounded-full transition-all duration-200";
 
@@ -63,6 +67,8 @@ export function Button({
 
   return (
     <motion.button
+      type={type}
+      disabled={disabled}
       onClick={onClick}
       className={combinedClassName}
       whileHover={{ scale: 1.02 }}
