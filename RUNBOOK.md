@@ -30,3 +30,21 @@
     - Unchanged: `app.syncdays.com`, MX, SPF and Resend DKIM.
   - Watch: on the first production form test, typed values were cleared once before submit and a retype worked. This is possibly a hydration timing effect on the controlled inputs. Not reproduced; check whether real users hit it.
   - Vercel project `syncdays-website` stays up until 2026-10-13 (14-day window) for DNS rollback.
+- **2026-10-01, Web Analytics:** already enabled for syncdays.com in the Cloudflare dashboard (automatic setup, created 2026-09-29; 36 page views and 3 visits in the 24 h before the check). `CF_BEACON_TOKEN` stays empty because the automatic setup injects the beacon. Nothing to deploy.
+
+### Planned: CHANGE syncdays-website-03, not before 2026-10-13 (TASKS.md T3; approved by the owner in chat 2026-10-01)
+- **What:**
+  1. Confirm the 14 days passed without a rollback:
+     - `curl -s https://syncdays.com/healthz` returns `"env":"production"`;
+     - `dig +short syncdays.com` shows Cloudflare addresses;
+     - no incident in the log above.
+  2. Record the project: run `vercel project inspect syncdays-website` and list its env var **names**, saving both to `~/syncdays-backups/<date>-vercel-website/`. The source lives on in `apps/syncdays-website` and in the old repo.
+  3. Delete the Vercel project: `vercel project rm syncdays-website`. It's irreversible, so only after 1 and 2.
+  4. Old repo `vdodan/syncdays-website` (public):
+     - commit a README pointer to `github.com/vdodan/factory/tree/main/apps/syncdays-website` (the factory repo is private, so say "moved to the private factory monorepo");
+     - then `gh repo archive vdodan/syncdays-website --yes`. That's reversible with `gh repo unarchive`.
+- **Why:** Pilot #1 closure; the Vercel copy was only the DNS rollback target.
+- **Impact:** none on syncdays.com, which is served by the Worker. syncdays-website-*.vercel.app URLs stop working.
+- **Rollback:** after step 3, a DNS rollback to Vercel is no longer possible. Recovery is redeploying the Worker (`rollback.yml`).
+- **Downtime risk:** none. **Data-loss risk:** none (static site, source in git).
+- **Verification:** `vercel project ls` no longer lists it; `gh repo view vdodan/syncdays-website --json isArchived` returns `true`; syncdays.com/healthz is still OK.
