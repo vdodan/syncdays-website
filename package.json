@@ -1,6 +1,6 @@
 {
   "name": "syncdays-website",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "type": "module",
   "description": "syncdays.com marketing site: Next.js static export on Workers Static Assets + contact-form Worker",
