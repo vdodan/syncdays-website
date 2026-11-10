@@ -1,0 +1,52 @@
+{
+  "name": "@vdodan/config",
+  "version": "0.1.0",
+  "description": "Shared TypeScript presets and Workers constants for App Factory packages and apps",
+  "type": "module",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vdodan/factory.git",
+    "directory": "packages/config"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./tsconfig.worker.json": "./tsconfig.worker.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "tsconfig.base.json",
+    "tsconfig.worker.json"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "@cloudflare/workers-types": ">=4",
+    "typescript": ">=5.9"
+  },
+  "peerDependenciesMeta": {
+    "@cloudflare/workers-types": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vitest": "4.1.11",
+    "@cloudflare/workers-types": "5.20260927.1",
+    "@types/node": "^24.0.0"
+  }
+}

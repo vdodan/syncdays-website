@@ -10,7 +10,7 @@
   "account": "vlad",
   "criticality": "normal",
   "lifecycle": "active",
-  "repo": "github.com/vdodan/factory",
+  "repo": "github.com/vdodan/syncdays-website",
   "framework": { "name": "next", "adapter": "static", "adapterVersion": "16.1.2" },
   "auth": { "kind": "none", "methods": [] },
   "environments": ["staging", "production"],

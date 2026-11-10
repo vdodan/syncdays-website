@@ -5,12 +5,14 @@
   "type": "module",
   "description": "syncdays.com marketing site: Next.js static export on Workers Static Assets + contact-form Worker",
   "scripts": {
+    "postinstall": "pnpm -r --filter \"./packages/*\" run build",
     "dev": "next dev",
     "build": "next build",
     "preview": "next build && wrangler dev",
     "lint": "eslint",
     "typecheck": "tsc --noEmit && tsc -p worker/tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "deploy": "next build && wrangler deploy --env production"
   },
   "dependencies": {
     "@vdodan/email": "workspace:*",
@@ -36,5 +38,13 @@
     "typescript": "5.9.3",
     "vitest": "4.1.11",
     "wrangler": "4.142.0"
+  },
+  "packageManager": "pnpm@10.34.5",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "workerd",
+      "sharp"
+    ]
   }
 }

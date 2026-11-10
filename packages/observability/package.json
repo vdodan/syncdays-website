@@ -1,0 +1,40 @@
+{
+  "name": "@vdodan/observability",
+  "version": "0.1.0",
+  "description": "Structured JSON logging, request IDs and a Worker handler wrapper",
+  "type": "module",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vdodan/factory.git",
+    "directory": "packages/observability"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vitest": "4.1.11",
+    "@vdodan/config": "workspace:*",
+    "@cloudflare/workers-types": "5.20260927.1",
+    "@types/node": "^24.0.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "extends": "@vdodan/config/tsconfig.worker.json",
+  "compilerOptions": {
+    "types": ["@cloudflare/workers-types", "node"],
+    "noEmit": true
+  },
+  "include": ["src", "test"]
+}

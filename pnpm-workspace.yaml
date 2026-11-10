@@ -1,0 +1,4 @@
+# The site is the root; packages/ holds its own copies of the factory shared code,
+# copied when it left the factory monorepo. Edit them here; they no longer track the factory.
+packages:
+  - packages/*

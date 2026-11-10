@@ -13,6 +13,8 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "remotion/**",
+    // The copied factory packages have their own tests and typecheck.
+    "packages/**",
   ]),
 ]);
 
