@@ -36,7 +36,13 @@
       "Write(.claude/**)",
       "Edit(.github/CODEOWNERS)",
       "Read(.dev.vars)",
-      "Read(**/.env*)"
+      "Read(**/.env*)",
+      "Bash(*deploy:production*)",
+      "Bash(*CLOUDFLARE_ENV=*prod*)",
+      "Bash(*WRANGLER_ENV=*prod*)",
+      "Bash(*wrangler dev*--remote*)",
+      "Bash(*.env.production*)",
+      "Bash(*.env.local*)"
     ],
     "ask": [
       "Bash(*wrangler deploy*)",
@@ -46,7 +52,9 @@
       "Bash(*factory secrets set*)",
       "Edit(.github/workflows/**)",
       "Edit(wrangler.jsonc)",
-      "Edit(migrations/**)"
+      "Edit(migrations/**)",
+      "Bash(pnpm *deploy*)",
+      "Bash(npm run deploy*)"
     ],
     "allow": [
       "Bash(pnpm dev*)",
@@ -62,7 +70,7 @@
       "Bash(factory env*)",
       "Bash(factory doctor*)",
       "Bash(factory cost*)",
-      "Bash(factory provision --env preview*)"
+      "Bash(factory provision --env preview)"
     ]
   },
   "hooks": {
