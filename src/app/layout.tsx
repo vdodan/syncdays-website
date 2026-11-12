@@ -45,6 +45,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${outfit.variable} ${playfair.variable} antialiased`}>
         {children}
+        <script defer src="/a.js" />
         {CF_BEACON_TOKEN && (
           <script
             defer
